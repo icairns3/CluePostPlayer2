@@ -12,7 +12,9 @@ public class gameSetupTests {
 	
 	}
 	@Test
-	public void testRoomLegend() {
+	public void testLoadingPeople() {
 		assertTrue(true);
 	}
+	
+	
 }
