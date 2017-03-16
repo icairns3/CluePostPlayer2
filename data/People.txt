@@ -11,14 +11,14 @@ GREEN
 6
 32
 Lady Luck
-BLACK
--1
--1
+YELLOW
+17
+11
 Professor Plump
-BLACK
--1
--1
+PINK
+17
+19
 Yeti
-BLACK
--1
--1
+ORANGE
+32
+10

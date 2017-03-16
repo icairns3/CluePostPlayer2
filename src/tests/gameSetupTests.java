@@ -30,7 +30,7 @@ public class gameSetupTests {
 	@Test
 	public void testLoadingPeople() {
 		ArrayList<Player> testList = board.getPlayers();
-		assertEquals(testList.size(), 3);
+		assertEquals(testList.size(), 6);
 		//Human Player
 		assertEquals("Professor Steeze", testList.get(0).getPlayerName());
 		assertEquals(Color.RED, testList.get(0).getColor());
@@ -82,7 +82,6 @@ public class gameSetupTests {
 		//Make sure we have the certain cards deck
 		assertTrue(names.contains("Dr Bean"));
 		assertTrue(names.contains("Lady Luck"));
-		
 		assertTrue(names.contains("Knife"));
 		assertTrue(names.contains("Plunger"));
 		assertTrue(names.contains("Kitchen"));
