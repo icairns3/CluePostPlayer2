@@ -1,0 +1,11 @@
+W, Walkway, Other
+X, Closet, Other
+K, Kitchen, Card
+B, Ballroom, Card
+L, Laboratory, Card
+C, Conservatory, Card
+O, Observatory, Card
+S, Study, Card
+A, Lavatory, Card
+R, Repository, Card
+M, Manufactory, Card

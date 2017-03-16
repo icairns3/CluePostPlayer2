@@ -1,0 +1,15 @@
+The observatory has a downward facing door on a corner.
+The ballroom has a right facing door between other doors.
+The conservatory has a left facing door.
+The kitchen has an upward facing door.
+The manufactory room piece is surrounded by other room pieces and no doors.
+The walkway... is a walkway.
+
+We test the room initials based on our legend:
+O = observatory
+C = conservatory
+M = manufactory
+L = laboratory
+A = lavatory
+W = walkway
+X = closet
