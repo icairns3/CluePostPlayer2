@@ -10,3 +10,7 @@ Mrs $Bills
 GREEN
 6
 32
+Lady Luck
+BLACK
+-1
+-1

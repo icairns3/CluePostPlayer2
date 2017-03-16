@@ -45,6 +45,7 @@ public class Board {
 	public void initialize() {
 		legend = new HashMap<>();
 		adjMatrix = new HashMap<>();
+		cardDeck = new HashMap<String, CardType>();
 		//load Legend file
 		try {
 			loadRoomConfig();
@@ -79,6 +80,27 @@ public class Board {
 			e.printStackTrace();
 		}
 		
+		//Load Players into Game
+				try {
+					loadWeapons();
+				} catch (FileNotFoundException e) {
+					System.out.println("Weapons file not found");
+					e.printStackTrace();
+				} catch (BadConfigFormatException e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}
+		
+		
+	}
+	
+	public void loadWeapons() throws FileNotFoundException, BadConfigFormatException {
+		Scanner scan = new Scanner(new File(dataLocation + "Weapons.txt"));
+		while (scan.hasNextLine()) {
+			String line = scan.nextLine();
+			cardDeck.put(line, CardType.WEAPON);
+		}
+		scan.close();
 		
 	}
 
@@ -105,10 +127,12 @@ public class Board {
 			}catch(NumberFormatException e){
 				throw new BadConfigFormatException();
 			}
+			if(row != -1){
+				if(playerNum == 0)playerList.add(new HumanPlayer(line1, row, column, color));
+				else playerList.add(new ComputerPlayer(line1, row, column, color));
+			}
+			cardDeck.put(line1, CardType.PERSON);
 			
-			if(playerNum == 0)playerList.add(new HumanPlayer(line1, row, column, color));
-			else playerList.add(new ComputerPlayer(line1, row, column, color));
-
 			playerNum++;
 		}
 		scan.close();
@@ -133,6 +157,7 @@ public class Board {
 			String[] entries = line.split(", ");
 			if (entries[2].equals("Card") || entries[2].equals("Other")) {
 				legend.put(entries[0].charAt(0), entries[1]);
+				if(entries[2].equals("Card"))cardDeck.put(entries[1], CardType.ROOM);
 
 			} else {
 				scan.close();

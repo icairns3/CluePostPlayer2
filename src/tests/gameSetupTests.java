@@ -28,6 +28,7 @@ public class gameSetupTests {
 	@Test
 	public void testLoadingPeople() {
 		ArrayList<Player> testList = board.getPlayers();
+		assertEquals(testList.size(), 3);
 		//Human Player
 		assertEquals("Professor Steeze", testList.get(0).getPlayerName());
 		assertEquals(Color.RED, testList.get(0).getColor());
