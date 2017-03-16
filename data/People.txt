@@ -1,0 +1,12 @@
+Professor Steeze
+RED
+3
+0
+Dr Bean
+BLUE
+0
+9
+Mrs $Bills
+GREEN
+6
+32

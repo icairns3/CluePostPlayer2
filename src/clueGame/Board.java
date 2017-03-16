@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class Board {
 	private Set<BoardCell> visited;
 	private String boardConfigFile;
 	private String roomConfigFile;
+	private ArrayList<Player> playerList;
 
 	// Header for data file location
 	private static final String dataLocation = "data/";
@@ -42,6 +44,7 @@ public class Board {
 	public void initialize() {
 		legend = new HashMap<>();
 		adjMatrix = new HashMap<>();
+		//load Legend file
 		try {
 			loadRoomConfig();
 		} catch (FileNotFoundException e) {
@@ -51,6 +54,7 @@ public class Board {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+		//load Map file
 		try {
 			loadBoardConfig();
 		} catch (FileNotFoundException e) {
@@ -62,8 +66,61 @@ public class Board {
 		}
 
 		calcAdjacencies();
+		
+		try {
+			loadPeople();
+		} catch (FileNotFoundException e) {
+			System.out.println("People file not found");
+			e.printStackTrace();
+		} catch (BadConfigFormatException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
+	public void loadPeople() throws FileNotFoundException, BadConfigFormatException {
+		playerList = new ArrayList<Player>();
+		Scanner scan = new Scanner(new File(dataLocation + "People.txt"));
+		int playerNum=0;
+		while (scan.hasNextLine()) {
+			String line1, line2, line3, line4;
+			if(scan.hasNextLine()) line1 = scan.nextLine();
+			else throw new BadConfigFormatException();
+			if(scan.hasNextLine()) line2 = scan.nextLine();
+			else throw new BadConfigFormatException();
+			if(scan.hasNextLine()) line3 = scan.nextLine();
+			else throw new BadConfigFormatException();
+			if(scan.hasNextLine()) line4 = scan.nextLine();
+			else throw new BadConfigFormatException();
+			Color color = convertColor(line2);
+			if(color == null)throw new BadConfigFormatException("Bad Color");
+			int row, column;
+			try{
+				row = Integer.parseInt(line4);
+				column = Integer.parseInt(line3);
+			}catch(NumberFormatException e){
+				throw new BadConfigFormatException();
+			}
+			
+			if(playerNum == 0)playerList.add(new HumanPlayer(line1, row, column, color));
+			else playerList.add(new ComputerPlayer(line1, row, column, color));
+
+			playerNum++;
+		}
+		scan.close();
+		
+	}
+	public Color convertColor(String strColor) {
+	    Color color; 
+	    try {     
+	        // We can use reflection to convert the string to a color
+	        java.lang.reflect.Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
+	        color = (Color)field.get(null); 
+	    } catch (Exception e) {  
+	        color = null; // Not defined  
+	    }
+	    return color;
+	}
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
 		Scanner scan = new Scanner(new File(dataLocation + roomConfigFile));
 		while (scan.hasNextLine()) {
@@ -275,6 +332,11 @@ public class Board {
 
 	public Set<BoardCell> getTargets() {
 		return targets;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		// TODO Auto-generated method stub
+		return playerList;
 	}
 
 }

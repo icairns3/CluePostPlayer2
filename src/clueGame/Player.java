@@ -17,17 +17,7 @@ public abstract class Player {
 	    this.color = color;
 	  }
 	
-	public Color convertColor(String strColor) {
-	    Color color; 
-	    try {     
-	        // We can use reflection to convert the string to a color
-	        java.lang.reflect.Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
-	        color = (Color)field.get(null); 
-	    } catch (Exception e) {  
-	        color = null; // Not defined  
-	    }
-	    return color;
-	}
+	
 	
 	public void addCard(Card card){
 	    this.myCards.add(card);  
