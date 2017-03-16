@@ -37,6 +37,11 @@ public abstract class Player {
 		return null;
 	}
 	
+	public Color getColor() {
+		return color;
+	}
+
+
 	//Getters and Setters for testing
 	public String getPlayerName(){
 		return playerName;
@@ -44,5 +49,8 @@ public abstract class Player {
 	
 	public int getRow(){
 		return row;
+	}
+	public int getColumn(){
+		return column;
 	}
 }

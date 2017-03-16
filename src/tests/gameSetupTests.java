@@ -1,11 +1,16 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.Board;
+import clueGame.*;
 
 public class gameSetupTests {
 	private static Board board;
@@ -21,7 +26,24 @@ public class gameSetupTests {
 	}
 	@Test
 	public void testLoadingPeople() {
-		assertTrue(true);
+		ArrayList<Player> testList = board.getPlayers();
+		//Human Player
+		assertEquals("Professor Steeze", testList.get(0).getPlayerName());
+		assertEquals(Color.RED, testList.get(0).getColor());
+		assertEquals(3, testList.get(0).getColumn());
+		assertEquals(0, testList.get(0).getRow());
+		
+		// computer 1
+		assertEquals("Dr Bean", testList.get(1).getPlayerName());
+		assertEquals(Color.BLUE, testList.get(1).getColor());
+		assertEquals(0, testList.get(1).getColumn());
+		assertEquals(9, testList.get(1).getRow());
+		
+		// computer 2
+		assertEquals("Mrs $Bills", testList.get(2).getPlayerName());
+		assertEquals(Color.GREEN, testList.get(2).getColor());
+		assertEquals(6, testList.get(2).getColumn());
+		assertEquals(32, testList.get(2).getRow());
 	}
 	
 	
