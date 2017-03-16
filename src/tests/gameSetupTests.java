@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,11 +51,38 @@ public class gameSetupTests {
 	
 	@Test
 	public void testLoadingDeck(){
-		Map<String, CardType> cardDeck = board.getCardDeck();
-		assertTrue(cardDeck.containsKey("Dr Bean"));
-		assertTrue(cardDeck.containsKey("Knife"));
-		assertTrue(cardDeck.containsKey("Kitchen"));
+		Set<Card> cardDeck = board.getCardDeck();
+		int personCount = 0;
+		int weaponCount = 0;
+		int roomCount=0;
+		assertEquals(cardDeck.size(), 21);
+		Set names = new HashSet<String>();
+		for(Card e:cardDeck){
+			switch(e.getCardType()){
+			case PERSON:
+				personCount++;
+				break;
+			case WEAPON:
+				weaponCount++;
+				break;
+			case ROOM:
+				roomCount++;
+				break;
+			}
+			names.add(e.getCardName());
+		}
+		assertEquals(personCount, 6);
+		assertEquals(weaponCount, 6);
+		assertEquals(roomCount, 9);
+		
+		assertTrue(names.contains("Dr Bean"));
+		assertTrue(names.contains("Knife"));
+		assertTrue(names.contains("Plunger"));
+		assertTrue(names.contains("Kitchen"));
 	}
-	
+	@Test
+	public void testDealingDeck(){
+		
+	}
 	
 }

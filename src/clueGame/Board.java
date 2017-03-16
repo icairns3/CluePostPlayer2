@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -27,7 +28,8 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private ArrayList<Player> playerList;
-	private Map<String, CardType> cardDeck;
+	private Set<Card> cardDeck;
+	private Solution solution;
 
 	// Header for data file location
 	private static final String dataLocation = "data/";
@@ -45,7 +47,7 @@ public class Board {
 	public void initialize() {
 		legend = new HashMap<>();
 		adjMatrix = new HashMap<>();
-		cardDeck = new HashMap<String, CardType>();
+		cardDeck = new HashSet<Card>();
 		//load Legend file
 		try {
 			loadRoomConfig();
@@ -94,11 +96,52 @@ public class Board {
 		
 	}
 	
+	public void DealCards(){
+		Random random    = new Random();
+		List<Card> keys  = (List<Card>) cardDeck;
+		boolean Per = false;
+		boolean Wep = false;
+		boolean Rom = false;
+		Card person, room, weapon;
+		while(!Per || !Wep || !Rom){
+			Card randomKey = keys.get( random.nextInt(keys.size()) );
+			switch(randomKey.getCardType()){
+			case PERSON:
+				if(!Per){
+					Per= true;
+					person = randomKey;
+				}
+				break;
+			case ROOM:
+				if(!Rom){
+					Rom= true;
+					room = randomKey;
+				}
+				break;
+			case WEAPON:
+				if(!Wep){
+					Wep= true;
+					weapon = randomKey;
+				}
+				break;
+			}
+		}
+		/*
+		solution = new Solution(person, room, weapon);
+		List<String> keys  = (List<String>) cardDeck.keySet();
+		Set<String> used = new HashSet<String>();
+		used.
+		random    = new Random();
+		for()
+		*/
+		
+	}
+	
 	public void loadWeapons() throws FileNotFoundException, BadConfigFormatException {
 		Scanner scan = new Scanner(new File(dataLocation + "Weapons.txt"));
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
-			cardDeck.put(line, CardType.WEAPON);
+			cardDeck.add(new Card(line, CardType.WEAPON));
 		}
 		scan.close();
 		
@@ -131,7 +174,7 @@ public class Board {
 				if(playerNum == 0)playerList.add(new HumanPlayer(line1, row, column, color));
 				else playerList.add(new ComputerPlayer(line1, row, column, color));
 			}
-			cardDeck.put(line1, CardType.PERSON);
+			cardDeck.add(new Card(line1, CardType.PERSON));
 			
 			playerNum++;
 		}
@@ -157,7 +200,7 @@ public class Board {
 			String[] entries = line.split(", ");
 			if (entries[2].equals("Card") || entries[2].equals("Other")) {
 				legend.put(entries[0].charAt(0), entries[1]);
-				if(entries[2].equals("Card"))cardDeck.put(entries[1], CardType.ROOM);
+				if(entries[2].equals("Card"))cardDeck.add(new Card(entries[1], CardType.ROOM));
 
 			} else {
 				scan.close();
@@ -368,7 +411,7 @@ public class Board {
 		return playerList;
 	}
 
-	public Map<String, CardType> getCardDeck() {
+	public Set<Card> getCardDeck() {
 		return cardDeck;
 	}
 }

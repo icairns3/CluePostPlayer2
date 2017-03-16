@@ -14,3 +14,11 @@ Lady Luck
 BLACK
 -1
 -1
+Professor Plump
+BLACK
+-1
+-1
+Yeti
+BLACK
+-1
+-1
