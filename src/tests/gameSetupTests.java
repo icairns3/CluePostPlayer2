@@ -81,6 +81,8 @@ public class gameSetupTests {
 		
 		//Make sure we have the certain cards deck
 		assertTrue(names.contains("Dr Bean"));
+		assertTrue(names.contains("Lady Luck"));
+		
 		assertTrue(names.contains("Knife"));
 		assertTrue(names.contains("Plunger"));
 		assertTrue(names.contains("Kitchen"));
