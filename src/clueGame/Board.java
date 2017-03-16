@@ -27,6 +27,7 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private ArrayList<Player> playerList;
+	private Map<String, CardType> cardDeck;
 
 	// Header for data file location
 	private static final String dataLocation = "data/";
@@ -67,6 +68,7 @@ public class Board {
 
 		calcAdjacencies();
 		
+		//Load Players into Game
 		try {
 			loadPeople();
 		} catch (FileNotFoundException e) {
@@ -76,6 +78,8 @@ public class Board {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	public void loadPeople() throws FileNotFoundException, BadConfigFormatException {
@@ -339,4 +343,7 @@ public class Board {
 		return playerList;
 	}
 
+	public Map<String, CardType> getCardDeck() {
+		return cardDeck;
+	}
 }

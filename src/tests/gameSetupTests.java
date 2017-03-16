@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.BeforeClass;
@@ -44,6 +45,14 @@ public class gameSetupTests {
 		assertEquals(Color.GREEN, testList.get(2).getColor());
 		assertEquals(6, testList.get(2).getColumn());
 		assertEquals(32, testList.get(2).getRow());
+	}
+	
+	@Test
+	public void testLoadingDeck(){
+		Map<String, CardType> cardDeck = board.getCardDeck();
+		assertTrue(cardDeck.containsKey("Dr Bean"));
+		assertTrue(cardDeck.containsKey("Knife"));
+		assertTrue(cardDeck.containsKey("Kitchen"));
 	}
 	
 	
