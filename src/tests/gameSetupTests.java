@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -51,10 +52,12 @@ public class gameSetupTests {
 	
 	@Test
 	public void testLoadingDeck(){
-		Set<Card> cardDeck = board.getCardDeck();
+		ArrayList<Card> cardDeck = board.getCardDeck();
 		int personCount = 0;
 		int weaponCount = 0;
 		int roomCount=0;
+		
+		//check for correct size of deck
 		assertEquals(cardDeck.size(), 21);
 		Set names = new HashSet<String>();
 		for(Card e:cardDeck){
@@ -71,10 +74,12 @@ public class gameSetupTests {
 			}
 			names.add(e.getCardName());
 		}
+		// check for correct number of each card
 		assertEquals(personCount, 6);
 		assertEquals(weaponCount, 6);
 		assertEquals(roomCount, 9);
 		
+		//Make sure we have the certain cards deck
 		assertTrue(names.contains("Dr Bean"));
 		assertTrue(names.contains("Knife"));
 		assertTrue(names.contains("Plunger"));
@@ -82,6 +87,30 @@ public class gameSetupTests {
 	}
 	@Test
 	public void testDealingDeck(){
+		ArrayList<Player> testList = board.getPlayers();
+		int cardCount=0;
+		for(Player e: testList){
+			cardCount+=e.getMyCards().size();
+		}
+		assertEquals(21-3, cardCount);// assert correct number of cards
+		
+		//check players have ~same number of cards
+		assertTrue(Math.abs(testList.get(0).getMyCards().size()-testList.get(1).getMyCards().size())<2);
+		assertTrue(Math.abs(testList.get(1).getMyCards().size()-testList.get(2).getMyCards().size())<2);
+		
+		
+		//MAKE sure all players have unique cards
+		//make sure player 1's cards are unique
+		for(Card e: testList.get(0).getMyCards()){
+			assertTrue(!testList.get(1).getMyCards().contains(e));
+			assertTrue(!testList.get(2).getMyCards().contains(e));
+			
+		}
+		//make sure player 2's cards are unique;
+		for(Card e: testList.get(1).getMyCards()){
+			assertTrue(!testList.get(2).getMyCards().contains(e));
+			
+		}
 		
 	}
 	

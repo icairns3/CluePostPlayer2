@@ -19,6 +19,12 @@ public abstract class Player {
 	
 	
 	
+	public ArrayList<Card> getMyCards() {
+		return myCards;
+	}
+
+
+
 	public void addCard(Card card){
 	    this.myCards.add(card);  
 	  }

@@ -28,7 +28,7 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private ArrayList<Player> playerList;
-	private Set<Card> cardDeck;
+	private ArrayList<Card> cardDeck;
 	private Solution solution;
 
 	// Header for data file location
@@ -47,7 +47,7 @@ public class Board {
 	public void initialize() {
 		legend = new HashMap<>();
 		adjMatrix = new HashMap<>();
-		cardDeck = new HashSet<Card>();
+		cardDeck = new ArrayList<Card>();
 		//load Legend file
 		try {
 			loadRoomConfig();
@@ -92,6 +92,7 @@ public class Board {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
 				}
+		DealCards();
 		
 		
 	}
@@ -99,12 +100,14 @@ public class Board {
 	public void DealCards(){
 		Random random    = new Random();
 		List<Card> keys  = (List<Card>) cardDeck;
+		
 		boolean Per = false;
 		boolean Wep = false;
 		boolean Rom = false;
-		Card person, room, weapon;
+		Card person = null, room=null, weapon=null;
+		Card randomKey;
 		while(!Per || !Wep || !Rom){
-			Card randomKey = keys.get( random.nextInt(keys.size()) );
+			randomKey = keys.get( random.nextInt(keys.size()) );
 			switch(randomKey.getCardType()){
 			case PERSON:
 				if(!Per){
@@ -126,14 +129,24 @@ public class Board {
 				break;
 			}
 		}
-		/*
+		
 		solution = new Solution(person, room, weapon);
-		List<String> keys  = (List<String>) cardDeck.keySet();
-		Set<String> used = new HashSet<String>();
-		used.
+		Set<Card> used = new HashSet<Card>();
+		used.add(person);
+		used.add(room);
+		used.add(weapon);
 		random    = new Random();
-		for()
-		*/
+		int playerNum = 0;
+		while(used.size()<cardDeck.size()){
+			randomKey = keys.get( random.nextInt(keys.size()));
+			if(!used.contains(randomKey)){
+				used.add(randomKey);
+				playerList.get(playerNum).addCard(randomKey);
+				playerNum++;
+				if(playerNum==playerList.size()) playerNum=0;
+			}
+		}
+		
 		
 	}
 	
@@ -411,7 +424,7 @@ public class Board {
 		return playerList;
 	}
 
-	public Set<Card> getCardDeck() {
+	public ArrayList<Card> getCardDeck() {
 		return cardDeck;
 	}
 }
