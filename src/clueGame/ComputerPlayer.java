@@ -10,6 +10,10 @@ import java.util.Set;
 public class ComputerPlayer extends Player{
 	BoardCell lastDoorWay;
 
+	public void setLastDoorWay(BoardCell lastDoorWay) {
+		this.lastDoorWay = lastDoorWay;
+	}
+
 	public ComputerPlayer(String name, int row, int column, Color color) {
 		super(name, row, column, color);
 		// TODO Auto-generated constructor stub
@@ -26,6 +30,7 @@ public class ComputerPlayer extends Player{
 		Collections.shuffle(asList);
 		return asList.get(0);
 	}
+	
 	
 	public void makeAccusation(){
 		

@@ -61,8 +61,11 @@ private static Board board;
 		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
 	    // Pick a location with no rooms in target, just three targets
 	    board.calcTargets(11,13, 1);
+	    for (int i=0; i<100; i++) {
 	    BoardCell selected = player.pickLocation(board.getTargets());
 	    assertEquals(selected, board.getCellAt(10, 13));
+	    player.setLastDoorWay(null);
+	    }
 	}
 	
 	// If room just visited is in list, each target (including room) selected randomly
@@ -103,6 +106,19 @@ private static Board board;
 		        assertTrue(loc_10_13);
 		    
 		}
+		
+		
+	//Make an accusation. ____________________________________________________________
+	@Test
+	public void testAccusation(){
+		//Check real answer
+		assertTrue(board.checkAccusation(new Solution(board.getSolution().getPersonCard(), board.getSolution().getRoomCard(), board.getSolution().getWeaponCard())));
+		//solution with wrong person
+		assertFalse(board.checkAccusation(new Solution(new Card("JoeJoe", CardType.PERSON), board.getSolution().getRoomCard(), board.getSolution().getWeaponCard())));
+		//solution with wrong room
+			
+		//solution with wrong weapon
 	
 	
+	}
 }

@@ -28,5 +28,17 @@ public class Solution {
 		this.room = this.roomCard.getCardName();
 		this.weapon = this.weaponCard.getCardName();
 	}
+
+	public Card getPersonCard() {
+		return personCard;
+	}
+
+	public Card getRoomCard() {
+		return roomCard;
+	}
+
+	public Card getWeaponCard() {
+		return weaponCard;
+	}
 	
 }

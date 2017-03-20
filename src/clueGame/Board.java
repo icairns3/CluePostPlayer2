@@ -427,4 +427,12 @@ public class Board {
 	public ArrayList<Card> getCardDeck() {
 		return cardDeck;
 	}
+	public Solution getSolution(){
+		return solution;
+	}
+
+	public boolean checkAccusation(Solution solution) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
