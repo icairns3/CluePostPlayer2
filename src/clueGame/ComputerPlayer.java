@@ -1,9 +1,14 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player{
+	BoardCell lastDoorWay;
 
 	public ComputerPlayer(String name, int row, int column, Color color) {
 		super(name, row, column, color);
@@ -11,7 +16,12 @@ public class ComputerPlayer extends Player{
 	}
 
 	public BoardCell pickLocation(Set<BoardCell> targets){
-		return null;
+		for(BoardCell e:targets){
+			if(e != lastDoorWay && e.isDoorway()) return e;
+		}
+		List<BoardCell> asList = new ArrayList(targets);
+		Collections.shuffle(asList);
+		return asList.get(0);
 	}
 	
 	public void makeAccusation(){
