@@ -3,6 +3,7 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -284,5 +285,50 @@ private static Set<Card> deck;
 		player.addCard(diningroom);
 		Solution mysolution = new Solution(greenman,watergun, kitchen);
 		assertEquals(null, player.disproveSuggestion(mysolution));
+	}
+	
+	
+	//Handle suggestion__________________________________________________________________________________
+	
+	@Test
+	public void HandleSuggestions(){
+		ArrayList<Player> myPlayers = new ArrayList<Player>();
+		HumanPlayer human = new HumanPlayer("joeme", 11, 13, Color.BLUE);
+		human.addCard(blueman);
+		human.addCard(watergun);
+		myPlayers.add(human);
+		ComputerPlayer player1 = new ComputerPlayer("joe1", 11, 13, Color.BLUE);
+		player1.addCard(redman);
+		player1.addCard(rope);
+		myPlayers.add(player1);
+		ComputerPlayer player2 = new ComputerPlayer("joe2", 11, 13, Color.BLUE);
+		player2.addCard(greenman);
+		player2.addCard(breadloaf);
+		myPlayers.add(player2);
+		board.setPlayerList(myPlayers);
+		
+		//Suggestion no one can disprove returns null
+		Solution mysolution = new Solution(orangeman,kitchen, masonJar);
+		assertEquals(board.handleSuggestion(mysolution, human),null);
+		
+		//Suggestion only accusing player can disprove returns null
+		mysolution = new Solution(redman, kitchen, masonJar);
+		assertEquals(board.handleSuggestion(mysolution, player1),null);
+		
+		//Suggestion only human can disprove returns answer (i.e., card that disproves suggestion)
+		mysolution = new Solution(blueman, kitchen, masonJar);
+		assertEquals(board.handleSuggestion(mysolution, player1),blueman);
+		
+		//Suggestion only human can disprove, but human is accuser, returns null
+		mysolution = new Solution(blueman, kitchen, masonJar);
+		assertEquals(board.handleSuggestion(mysolution, human),null);
+		
+		//Suggestion that two players can disprove, correct player 
+		mysolution = new Solution(greenman,kitchen, rope);
+		assertEquals(board.handleSuggestion(mysolution, human),rope);
+		
+		//Suggestion that human and another player can disprove, other player is next in list, ensure other player returns answer
+		mysolution = new Solution(greenman, kitchen, watergun);
+		assertEquals(board.handleSuggestion(mysolution, player1),greenman);
 	}
 }

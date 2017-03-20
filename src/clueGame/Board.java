@@ -28,6 +28,8 @@ public class Board {
 	private String boardConfigFile;
 	private String roomConfigFile;
 	private ArrayList<Player> playerList;
+	
+
 	private ArrayList<Card> cardDeck;
 	private Solution solution;
 
@@ -438,5 +440,22 @@ public class Board {
 		if(!this.solution.getWeapon().equals(solution.getWeapon())) return false;
 		
 		return true;
+	}
+	public void setPlayerList(ArrayList<Player> playerList) {
+		this.playerList = playerList;
+	}
+
+	public Card handleSuggestion(Solution mysolution, Player player) {
+		// TODO Auto-generated method stub
+		int x = this.playerList.indexOf(player)+1;
+		for(int i = 0; i< this.playerList.size()-1;i++){
+			if(x==this.playerList.size())x=0;
+			Card ans = this.playerList.get(x).disproveSuggestion(mysolution);
+			if(ans!=null){
+				return ans;
+			}
+			x++;
+		}
+		return null;
 	}
 }

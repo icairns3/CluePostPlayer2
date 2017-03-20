@@ -47,7 +47,7 @@ public abstract class Player {
 			matching.add(suggestion.getWeaponCard());
 		if(myCards.contains(suggestion.getRoomCard()))
 			matching.add(suggestion.getRoomCard());
-		//if(matching.isEmpty()) return null;
+		if(matching.isEmpty()) return null;
 		List<Card> aList = new ArrayList(matching);
 		Collections.shuffle(aList);
 		return aList.get(0);
