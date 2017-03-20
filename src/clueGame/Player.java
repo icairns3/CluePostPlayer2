@@ -2,7 +2,9 @@ package clueGame;
 import java.awt.Color;
 import java.text.Format.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class Player {
@@ -37,7 +39,18 @@ public abstract class Player {
 	  }
 	
 	public Card disproveSuggestion(Solution suggestion){
-		return null;
+		Set<Card> matching = new HashSet<Card>();
+		
+		if(myCards.contains(suggestion.getPersonCard()))
+			matching.add(suggestion.getPersonCard());
+		if(myCards.contains(suggestion.getWeaponCard()))
+			matching.add(suggestion.getWeaponCard());
+		if(myCards.contains(suggestion.getRoomCard()))
+			matching.add(suggestion.getRoomCard());
+		//if(matching.isEmpty()) return null;
+		List<Card> aList = new ArrayList(matching);
+		Collections.shuffle(aList);
+		return aList.get(0);
 	}
 	
 	public Color getColor() {

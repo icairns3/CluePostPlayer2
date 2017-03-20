@@ -36,9 +36,6 @@ public class ComputerPlayer extends Player{
 		
 	}
 	
-	public void createSuggestion(){
-		
-	}
 
 	public void addSeen(Card card) {
 		// TODO Auto-generated method stub

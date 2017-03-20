@@ -215,13 +215,74 @@ private static Set<Card> deck;
 			else{
 				assertTrue(false);
 			}
-			
-			
-			
-			
 		}
+	}	
+	
+	//Disprove suggestion - ComputerPlayer__________________________________________________________________
+	
+	//If player has only one matching card it should be returned
+	@Test
+	public void DisproveWithOneMatching(){
+		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
+		player.addCard(blueman);
+		player.addCard(redman);
+	
+		player.addCard(watergun);
+		player.addCard(rope);
 		
+		player.addCard(kitchen);
+		player.addCard(diningroom);
+		
+		Solution mysolution = new Solution(blueman,breadloaf, ballroom);
+		assertEquals(blueman, player.disproveSuggestion(mysolution));
+		mysolution = new Solution(greenman,watergun, ballroom);
+		assertEquals(watergun, player.disproveSuggestion(mysolution));
+		mysolution = new Solution(greenman,breadloaf, kitchen);
+		assertEquals(kitchen, player.disproveSuggestion(mysolution));
 	}
 	
+	//If players has >1 matching card, returned card should be chosen randomly
+	@Test
+	public void DisproveWithMultipleMatching(){
+		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
+		player.addCard(blueman);
+		player.addCard(redman);
 	
+		player.addCard(watergun);
+		player.addCard(rope);
+		
+		player.addCard(kitchen);
+		player.addCard(diningroom);
+		Solution mysolution = new Solution(blueman,watergun, kitchen);
+		boolean didBlue = false;
+		boolean didWater = false;
+		boolean didKitchen = false;
+		
+		for(int i=0; i<100;i++){
+			if(player.disproveSuggestion(mysolution)==blueman)
+				didBlue=true;
+			if(player.disproveSuggestion(mysolution)==watergun)
+				didWater=true;
+			if(player.disproveSuggestion(mysolution)==kitchen)
+				didKitchen=true;
+		}
+		assertTrue(didBlue);
+		assertTrue(didWater);
+		assertTrue(didKitchen);
+	}
+	
+	//If player has no matching cards, null is returned
+	public void DisproveWithNoMatching(){
+		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
+		player.addCard(blueman);
+		player.addCard(redman);
+	
+		player.addCard(watergun);
+		player.addCard(rope);
+		
+		player.addCard(kitchen);
+		player.addCard(diningroom);
+		Solution mysolution = new Solution(greenman,watergun, kitchen);
+		assertEquals(null, player.disproveSuggestion(mysolution));
+	}
 }
