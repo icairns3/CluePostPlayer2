@@ -433,6 +433,10 @@ public class Board {
 
 	public boolean checkAccusation(Solution solution) {
 		// TODO Auto-generated method stub
-		return false;
+		if(!this.solution.getPerson().equals(solution.getPerson())) return false;
+		if(!this.solution.getRoom().equals(solution.getRoom())) return false;
+		if(!this.solution.getWeapon().equals(solution.getWeapon())) return false;
+		
+		return true;
 	}
 }

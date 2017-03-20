@@ -116,9 +116,9 @@ private static Board board;
 		//solution with wrong person
 		assertFalse(board.checkAccusation(new Solution(new Card("JoeJoe", CardType.PERSON), board.getSolution().getRoomCard(), board.getSolution().getWeaponCard())));
 		//solution with wrong room
-			
+		assertFalse(board.checkAccusation(new Solution(board.getSolution().getPersonCard(), new Card("JoeJoe", CardType.ROOM), board.getSolution().getWeaponCard())));
 		//solution with wrong weapon
-	
+		assertFalse(board.checkAccusation(new Solution(board.getSolution().getPersonCard(), board.getSolution().getRoomCard(), new Card("JoeJoe", CardType.WEAPON))));
 	
 	}
 }
