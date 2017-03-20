@@ -3,6 +3,9 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,8 +15,11 @@ import clueGame.*;
 public class gameActionTests {
 
 private static Board board;
-	
-	
+
+private static Card blueman, redman, greenman, orangeman;
+private static Card study, kitchen, diningroom, ballroom;
+private static Card watergun, rope, masonJar, breadloaf;
+private static Set<Card> deck;
 	@BeforeClass
 	public static void setUp() {
 		// Board is singleton, get the only instance and initialize it		
@@ -21,6 +27,37 @@ private static Board board;
 		// set the file names to use my config files
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");		
 		board.initialize();
+		
+		deck = new HashSet<Card>();
+		
+		blueman = new Card("Blueman", CardType.PERSON);
+		deck.add(blueman);
+	    redman = new Card("redman", CardType.PERSON);
+	    deck.add(redman);
+	    greenman = new Card("greenman", CardType.PERSON);
+	    deck.add(greenman);
+	    orangeman = new Card("Orangeman", CardType.PERSON);
+	    deck.add(orangeman);
+	    
+	    study = new Card("Study", CardType.ROOM);
+	    deck.add(study);
+	    kitchen = new Card("Kitchen", CardType.ROOM);
+	    deck.add(kitchen);
+	    diningroom = new Card("Dining Room", CardType.ROOM);
+	    deck.add(diningroom);
+	    ballroom = new Card("Ballroom", CardType.ROOM);
+	    deck.add(ballroom);
+	    
+	    watergun = new Card("Watergun", CardType.WEAPON);
+	    deck.add(watergun);
+	    breadloaf = new Card("BreadLoaf", CardType.WEAPON);
+	    deck.add(breadloaf);
+	    masonJar = new Card("Mason Jar", CardType.WEAPON);
+	    deck.add(masonJar);
+	    rope = new Card("Rope", CardType.WEAPON);
+	    deck.add(rope);
+	    
+	    
 	}
 	
 	
@@ -121,4 +158,26 @@ private static Board board;
 		assertFalse(board.checkAccusation(new Solution(board.getSolution().getPersonCard(), board.getSolution().getRoomCard(), new Card("JoeJoe", CardType.WEAPON))));
 	
 	}
+	
+	//Create suggestion___________________________________________________________________
+	@Test
+	public void CreateSuggestion(){
+		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
+		player.makeUnseen(deck);
+		player.addSeen(blueman);
+		player.addSeen(redman);
+		player.addSeen(greenman);
+		
+		player.addSeen(watergun);
+		player.addSeen(rope);
+		player.addSeen(masonJar);
+		
+		player.createSuggestion(kitchen);
+		assertEquals(kitchen, player.getSuggestion().room);
+	    assertEquals(orangeman, player.getSuggestion().person);
+	    assertEquals(breadloaf, player.getSuggestion().weapon);
+		
+	}
+	
+	
 }

@@ -2,12 +2,17 @@ package clueGame;
 import java.awt.Color;
 import java.text.Format.Field;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Player {
 	private String playerName;
 	private int row, column;
 	private Color color;
 	private ArrayList<Card> myCards = new ArrayList<Card>();
+	private Set<Card> unSeenPeople = new HashSet<Card>();
+	private Set<Card> unSeenWeaponnew = new HashSet<Card>();
+	private Set<Card> unSeenRoom=new HashSet<Card>();
 	
 	public Player(String name, int row, int column, Color color)
 	  {
