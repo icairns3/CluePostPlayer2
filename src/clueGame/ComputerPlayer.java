@@ -17,7 +17,10 @@ public class ComputerPlayer extends Player{
 
 	public BoardCell pickLocation(Set<BoardCell> targets){
 		for(BoardCell e:targets){
-			if(e != lastDoorWay && e.isDoorway()) return e;
+			if(e != lastDoorWay && e.isDoorway()){
+				lastDoorWay = e;
+				return e;
+			}
 		}
 		List<BoardCell> asList = new ArrayList(targets);
 		Collections.shuffle(asList);
