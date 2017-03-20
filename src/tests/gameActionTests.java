@@ -160,6 +160,7 @@ private static Set<Card> deck;
 	}
 	
 	//Create suggestion___________________________________________________________________
+	//test with only one solution possible
 	@Test
 	public void CreateSuggestion(){
 		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
@@ -176,6 +177,49 @@ private static Set<Card> deck;
 		assertEquals(kitchen, player.getSuggestion().getRoomCard());
 	    assertEquals(orangeman, player.getSuggestion().getPersonCard());
 	    assertEquals(breadloaf, player.getSuggestion().getWeaponCard());
+		
+	}
+	//test with many solutions possible
+	@Test
+	public void CreateSuggestion2(){
+		ComputerPlayer player = new ComputerPlayer("joe", 11, 13, Color.BLUE);
+		player.makeUnseen(deck);
+		player.addSeen(blueman);
+		player.addSeen(redman);
+		
+		
+		player.addSeen(watergun);
+		player.addSeen(rope);
+		
+		boolean didOrange = false;
+		boolean didGreen =false;
+		boolean didBread = false;
+		boolean didMason = false;
+		for (int i=0; i<100; i++) {
+			player.createSuggestion(kitchen);
+			if(player.getSuggestion().getPersonCard() == greenman){
+				didGreen = true;
+			}
+			else if(player.getSuggestion().getPersonCard() == orangeman){
+				didOrange = true;
+			}
+			else{
+				assertTrue(false);
+			}
+			if(player.getSuggestion().getWeaponCard() == masonJar){
+				didGreen = true;
+			}
+			else if(player.getSuggestion().getWeaponCard() == breadloaf){
+				didOrange = true;
+			}
+			else{
+				assertTrue(false);
+			}
+			
+			
+			
+			
+		}
 		
 	}
 	
