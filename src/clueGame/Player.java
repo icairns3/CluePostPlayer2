@@ -10,9 +10,11 @@ public abstract class Player {
 	private int row, column;
 	private Color color;
 	private ArrayList<Card> myCards = new ArrayList<Card>();
-	private Set<Card> unSeenPeople = new HashSet<Card>();
-	private Set<Card> unSeenWeaponnew = new HashSet<Card>();
-	private Set<Card> unSeenRoom=new HashSet<Card>();
+	protected Set<Card> unSeenPeople = new HashSet<Card>();
+	protected Set<Card> unSeenWeapon= new HashSet<Card>();
+	protected Set<Card> unSeenRoom=new HashSet<Card>();
+	protected Set<Card> cardSeen=new HashSet<Card>();
+	protected Solution suggestion;
 	
 	public Player(String name, int row, int column, Color color)
 	  {
@@ -53,5 +55,25 @@ public abstract class Player {
 	}
 	public int getColumn(){
 		return column;
+	}
+	
+	public void makeUnseen(Set<Card> deck) {
+		// TODO Auto-generated method stub
+		for(Card e: deck){
+			switch(e.getCardType()){
+			case PERSON:
+				unSeenPeople.add(e);
+				break;
+			case WEAPON:
+				unSeenWeapon.add(e);
+				break;
+			case ROOM:
+				unSeenRoom.add(e);
+				break;
+			}
+		}
+	}
+	public Solution getSuggestion(){
+		return suggestion;
 	}
 }

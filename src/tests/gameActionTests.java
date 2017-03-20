@@ -173,9 +173,9 @@ private static Set<Card> deck;
 		player.addSeen(masonJar);
 		
 		player.createSuggestion(kitchen);
-		assertEquals(kitchen, player.getSuggestion().room);
-	    assertEquals(orangeman, player.getSuggestion().person);
-	    assertEquals(breadloaf, player.getSuggestion().weapon);
+		assertEquals(kitchen, player.getSuggestion().getRoomCard());
+	    assertEquals(orangeman, player.getSuggestion().getPersonCard());
+	    assertEquals(breadloaf, player.getSuggestion().getWeaponCard());
 		
 	}
 	

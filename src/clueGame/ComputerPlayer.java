@@ -39,4 +39,31 @@ public class ComputerPlayer extends Player{
 	public void createSuggestion(){
 		
 	}
+
+	public void addSeen(Card card) {
+		// TODO Auto-generated method stub
+		cardSeen.add(card);
+		switch(card.getCardType()){
+		case PERSON:
+			unSeenPeople.remove(card);
+			break;
+		case WEAPON:
+			unSeenWeapon.remove(card);
+			break;
+		case ROOM:
+			unSeenRoom.remove(card);
+			break;
+		}
+	}
+
+	public void createSuggestion(Card room) {
+		// TODO Auto-generated method stub
+		List<Card> aList = new ArrayList(unSeenPeople);
+		List<Card> bList = new ArrayList(unSeenWeapon);
+		Collections.shuffle(aList);
+		Collections.shuffle(bList);
+		suggestion = new Solution(aList.get(0), room, bList.get(0));
+	}
+
+	
 }
